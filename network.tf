@@ -1,3 +1,5 @@
+/* Comment out to avoid leaving things active for no reason, we can uncomment later after testing
+
 resource "aws_vpc" "primary-vpc" {
   cidr_block           = var.primary_vpc_cidr
   enable_dns_support   = true
@@ -252,3 +254,4 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
     Side = "Accepter"
   }
 }
+*/
