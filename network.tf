@@ -142,6 +142,11 @@ resource "aws_route_table" "primary-public-crt" {
     gateway_id = aws_internet_gateway.primary_internet_gateway.id
   }
 
+  route {
+    cidr_block = aws_vpc.secondary-vpc.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  }
+
   tags = {
     Name = "primary-public-crt"
   }
@@ -154,6 +159,11 @@ resource "aws_route_table" "secondary-public-crt" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.secondary_internet_gateway.id
+  }
+
+    route {
+    cidr_block = aws_vpc.primary-vpc.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
   }
 
   tags = {
@@ -169,6 +179,11 @@ resource "aws_route_table" "primary-nat-crt" {
     nat_gateway_id = aws_nat_gateway.primary_nat_gateway.id
   }
 
+    route {
+    cidr_block = aws_vpc.secondary-vpc.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  }
+
   tags = {
     Name = "primary-nat-crt"
   }
@@ -181,6 +196,11 @@ resource "aws_route_table" "secondary-nat-crt" {
   route {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.secondary_nat_gateway.id
+  }
+
+    route {
+    cidr_block = aws_vpc.primary-vpc.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
   }
 
   tags = {
@@ -231,30 +251,4 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   tags = {
     Side = "Accepter"
   }
-}
-
-resource "aws_route" "primary_to_secondary_igw" {
-  route_table_id = aws_route_table.primary-public-crt.id
-  destination_cidr_block = aws_vpc.secondary-vpc.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-}
-
-resource "aws_route" "primary_to_secondary_nat" {
-  route_table_id = aws_route_table.primary-nat-crt.id
-  destination_cidr_block = aws_vpc.secondary-vpc.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-}
-
-resource "aws_route" "secondary_to_primary_igw" {
-  route_table_id = aws_route_table.secondary-public-crt.id
-  destination_cidr_block = aws_vpc.primary-vpc.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-  provider = aws.central-eu
-}
-
-resource "aws_route" "secondary_to_primary_nat" {
-  route_table_id = aws_route_table.secondary-nat-crt.id
-  destination_cidr_block = aws_vpc.primary-vpc.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-  provider = aws.central-eu
 }
