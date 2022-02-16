@@ -241,7 +241,7 @@ resource "aws_route_table_association" "secondary_nat_crta" {
 resource "aws_vpc_peering_connection" "peer" {
   vpc_id      = aws_vpc.primary-vpc.id
   peer_vpc_id = aws_vpc.secondary-vpc.id
-  peer_region = "eu-central-1"
+  peer_region = var.secondary_region
 
 }
 

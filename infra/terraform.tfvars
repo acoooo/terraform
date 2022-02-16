@@ -1,3 +1,7 @@
+primary_region = "us-east-1"
+
+secondary_region = "eu-central-1"
+
 policy_arn = [
   "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
   "arn:aws:iam::aws:policy/CloudFrontReadOnlyAccess",
