@@ -48,3 +48,5 @@ secondary_vpc_database_subnet_cidr = [
   "20.0.8.0/24",
   "20.0.9.0/24"
 ]
+
+bucket_name = "qki-acn-main-bucket"

@@ -48,3 +48,7 @@ variable "secondary_vpc_database_subnet_cidr" {
   description = "list of subnet cidr"
   type        = list(string)
 }
+
+variable "bucket_name" {
+  type = string
+}
