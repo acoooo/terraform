@@ -1,14 +1,10 @@
-version: '3'
+version: "3"
 services:
   trfm:
     image: hashicorp/terraform:1.1.5
     volumes:
-      - /infra:/data/infra
-      - /html:/data/html
+      - ./infra:/data/infra
+      - ./html:/data/html
     working_dir: /data/infra
-    #environment:
-    #- AWS_ACCESS_KEY_ID:${AWS_ACCESS_KEY_ID}
-    #- AWS_SECRET_ACCESS_KEY:${AWS_SECRET_ACCESS_KEY}
     env_file:
       - .env
-

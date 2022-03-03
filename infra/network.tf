@@ -1,4 +1,4 @@
-/* Comment out to avoid leaving things active for no reason, we can uncomment later after testing
+/* Comment out to avoid charge by elastic IP, remove comment afterwards
 
 resource "aws_vpc" "primary-vpc" {
   cidr_block           = var.primary_vpc_cidr
